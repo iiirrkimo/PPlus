@@ -1,0 +1,1 @@
+start AutoHotkey32.exe AHKOPD.ahk
