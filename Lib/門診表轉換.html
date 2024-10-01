@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<title>門診表格轉換</title>
+		<style>
+		html {font-size: 18px;}
+		.H-container{display : flex;}
+		.title {font-size: 40px; font-family: '微軟正黑體' ;	font-weight: 400;}
+		.opdblock {text-align:center;width: 120px; display:inline-block;}
+		.opdinput {font-size: 18px;width: 100px; height: 100px; text-align: center; resize: none;}		
+		.execbutton {margin: 2px;margin-right: 20px;font-size: 18px; font-weight: 400;}		
+		</style>
+	</head>
+	<body>
+		<div class="H-container">
+			<div class="title">門診時間表轉換</div>
+			<button class="execbutton" onclick="transfer()">轉換</button>
+		</div>
+		<div class="H-container">
+			<div class="opdblock">時間\星期</div>
+			<div class="opdblock">星期一</div>
+			<div class="opdblock">星期二</div>
+			<div class="opdblock">星期三</div>
+			<div class="opdblock">星期四</div>
+			<div class="opdblock">星期五</div>
+		</div>
+		<div class="H-container">
+			<div class="opdblock">
+				<textarea class="opdinput" id="opdam0"></textarea>
+			</div>
+			<div class="opdblock">
+				<textarea class="opdinput" id="opdam1"></textarea>
+			</div>
+			<div class="opdblock">
+				<textarea class="opdinput" id="opdam2"></textarea>
+			</div>
+			<div class="opdblock">
+				<textarea class="opdinput" id="opdam3"></textarea>
+			</div>
+			<div class="opdblock">
+				<textarea class="opdinput" id="opdam4"></textarea>
+			</div>
+			<div class="opdblock">
+				<textarea class="opdinput" id="opdam5"></textarea>
+			</div>
+		</div>
+		<div class="H-container">
+			<div class="opdblock">
+				<textarea class="opdinput" id="opdpm0"></textarea>
+			</div>
+			<div class="opdblock">
+				<textarea class="opdinput" id="opdpm1"></textarea>
+			</div>
+			<div class="opdblock">
+				<textarea class="opdinput" id="opdpm2"></textarea>
+			</div>
+			<div class="opdblock">
+				<textarea class="opdinput" id="opdpm3"></textarea>
+			</div>
+			<div class="opdblock">
+				<textarea class="opdinput" id="opdpm4"></textarea>
+			</div>
+			<div class="opdblock">
+				<textarea class="opdinput" id="opdpm5"> </textarea>
+			</div>
+		</div>
+		<div>
+			格式說明 : 每格不超過4行，每行不超過4字
+		</div>
+		<script>
+		document.getElementById('opdam0').value="上午\n0800\n至\n1130";
+		document.getElementById('opdam1').value="門診\n\n抽血"	;
+		document.getElementById('opdam2').value="門診\n\n兒童疫苗";
+		document.getElementById('opdam3').value="門診\n\n抽血";
+		document.getElementById('opdam4').value="門診";
+		document.getElementById('opdam5').value="門診\n\n抽血";
+		document.getElementById('opdpm0').value="下午\n1300\n至\n1630";
+		document.getElementById('opdpm1').value="門診";
+		document.getElementById('opdpm2').value="門診\n卡介苗\n(第一周\n2~4點)";
+		document.getElementById('opdpm3').value="休診";
+		document.getElementById('opdpm4').value="門診";
+		document.getElementById('opdpm5').value="門診";
+		
+		function transfer(){
+		opdam0=document.getElementById('opdam0').value;
+		opdam1=document.getElementById('opdam1').value;
+		opdam2=document.getElementById('opdam2').value;
+		opdam3=document.getElementById('opdam3').value;
+		opdam4=document.getElementById('opdam4').value;
+		opdam5=document.getElementById('opdam5').value;
+		opdpm0=document.getElementById('opdpm0').value;
+		opdpm1=document.getElementById('opdpm1').value;
+		opdpm2=document.getElementById('opdpm2').value;
+		opdpm3=document.getElementById('opdpm3').value;
+		opdpm4=document.getElementById('opdpm4').value;
+		opdpm5=document.getElementById('opdpm5').value;
+		opdlist=[["時間","星期一","星期二","星期三","星期四","星期五"],[opdam0,opdam1,opdam2,opdam3,opdam4,opdam5],[opdpm0,opdpm1,opdpm2,opdpm3,opdpm4,opdpm5]];
+		download('門診表.txt',JSON.stringify(opdlist));
+		}
+		function download(filename, text) {
+			var element = document.createElement('a');
+			element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+			element.setAttribute('download', filename);
+			element.style.display = 'none';
+			document.body.appendChild(element);
+			element.click();
+			document.body.removeChild(element);
+		}
+		</script>
+	</body>
+</html>
